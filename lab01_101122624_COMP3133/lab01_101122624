@@ -1,0 +1,45 @@
+const fs = require('fs');
+const path = require('path');
+const csv = require('csv-parser');
+
+const filePath = path.join(__dirname,'input_countries.csv');
+const canadaFile = path.join(__dirname,'canada.txt');
+const usaFile = path.join(__dirname,'usa.txt');
+
+const readStream = fs.createReadStream(filePath)
+const writeStreamCanada = fs.createWriteStream(canadaFile)
+const writeStreamUsa = fs.createWriteStream(usaFile)
+
+try{
+    fs.accessSync(canadaFile, fs.constants.F_OK) 
+    fs.unlinkSync(canadaFile)
+    console.log("canada.txt was deleted successfully")
+    fs.accessSync(usaFile, fs.constants.F_OK) 
+    fs.unlinkSync(usaFile)
+    console.log("usa.txt was deleted successfully")
+}catch(err){
+    console.log("error occurred")
+}
+
+readStream.pipe(csv())
+  .on('data', (data) => {
+   const dataToWrite = `${data.country},${data.year},${data.population}\n`
+    if(data.country==='Canada'){
+        writeStreamCanada.write(dataToWrite)
+    }
+     if(data.country==='United States'){
+        writeStreamUsa.write(dataToWrite)
+    }
+  })
+  .on('end', () => {
+    writeStreamCanada.end()
+    writeStreamUsa.end()
+    console.log("Country manipulation done successfully \n");
+    console.log('canada.txt data \n')
+    const canadaData = fs.readFileSync(canadaFile)
+    console.log(canadaData.toString())
+    console.log('usa.txt data')
+    const usaData = fs.readFileSync(usaFile)
+    console.log(usaData.toString())
+  });
+
