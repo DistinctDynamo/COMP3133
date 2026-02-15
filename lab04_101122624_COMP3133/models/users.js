@@ -34,6 +34,7 @@ const userSchema = new mongoose.Schema({
             match:[/^([a-zA-Z]*\s*){0,6}$/, "Only letters allowed"]
         },
         zipcode:{
+            type: String,
             required: true,
             match: [/^\d{5}-\d{4}$/, "Invalid zipcode format"]
         },
@@ -49,10 +50,12 @@ const userSchema = new mongoose.Schema({
         }
     },
     phone:{
+        type: String,
         required: true,
         match: [/^\d-\d{3}-\d{3}-\d{4}$/, "Invalid phone format"]
     },
     website:{
+        type: String,
         required: true,
         match: [/^http|https/, "Missing header"]
     },
@@ -62,7 +65,7 @@ const userSchema = new mongoose.Schema({
             required: true,
             trim: true
         },
-        catchphrase:{
+        catchPhrase:{
             type: String,
             required: true,
             trim: true
