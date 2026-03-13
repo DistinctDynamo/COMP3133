@@ -1,0 +1,16 @@
+{
+  "name": "lab06_101122624_comp3133",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "ex1":"node dist/exercise1/index.js",
+    "ex2":"node dist/exercise2/index.js",
+    "ex3":"node dist/exercise3/index.js",
+    "ex4":"node dist/exercise4/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
